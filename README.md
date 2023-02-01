@@ -11,29 +11,29 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+A small library for handle retry with max attempts or exponential backoff
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+
+view `/example` folder for examples
 
 ```dart
-const like = 'sample';
+  await withRetry(
+    () => Future.error('error'),
+    maxAttempts: 10,
+    fallback: () => 1,
+    backOffType: BackOffType.exponential,
+    backOffDelay: Duration(seconds: 1),
+    onRetry: () {},
+    maxDelayBeetwenAttempts: Duration(seconds: 4),
+  );
+
+  await withRetryWhen(
+    () => Future.error('error'),
+    shouldRetryWhile: (exception) => exception is String,
+    backOffType: BackOffType.fixed,
+  );
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.

@@ -2,7 +2,7 @@ import 'package:retry/retry.dart';
 
 void main() async {
   await withRetry(
-    () => Future.error('erro'),
+    () => Future.error('error'),
     maxAttempts: 10,
     fallback: () => 1,
     backOffType: BackOffType.exponential,
@@ -12,7 +12,7 @@ void main() async {
   );
 
   await withRetryWhen(
-    () => Future.error('erro'),
+    () => Future.error('error'),
     shouldRetryWhile: (exception) => exception is String,
     backOffType: BackOffType.fixed,
   );
